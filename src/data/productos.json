@@ -1,0 +1,33 @@
+{
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Smartwatch Tech",
+      "precio": 45.00,
+      "categoria": "Electrónica",
+      "imagen": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500",
+      "color": "azul"
+    },
+    {
+      "id": 2,
+      "nombre": "Reloj Elegance",
+      "precio": 89.99,
+      "categoria": "Accesorios",
+      "imagen": "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500",
+      "color": "rosa"
+    },
+    {
+      "id": 3,
+      "nombre": "Coche a Control",
+      "precio": 35.50,
+      "categoria": "Juguetes",
+      "imagen": "https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=500",
+      "color": "verde"
+    }
+  ],
+  "redes": [
+    { "nombre": "Instagram", "url": "#", "color": "hover:text-[#F25C92]" },
+    { "nombre": "Facebook", "url": "#", "color": "hover:text-[#0071BC]" },
+    { "nombre": "WhatsApp", "url": "#", "color": "hover:text-[#7AC143]" }
+  ]
+}
