@@ -1,15 +1,50 @@
 "use client";
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import { Instagram, Facebook, MessageCircle, Mail } from 'lucide-react';
 import data from '../data/productos.json';
 
 export default function Home() {
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
-  const redes = [
-    { nombre: 'Facebook', url: 'https://facebook.com/tiempopararegalar', color: 'text-blue-600 hover:text-blue-800' },
-    { nombre: 'Instagram', url: 'https://instagram.com/tiempopararegalar', color: 'text-pink-500 hover:text-pink-700' },
-    { nombre: 'WhatsApp', url: 'https://wa.me/1234567890', color: 'text-green-500 hover:text-green-700' },
-    { nombre: 'TikTok', url: 'https://tiktok.com/@tiempopararegalar', color: 'text-black hover:text-gray-800' },
-  ];
+  const [imgIndexModal, setImgIndexModal] = useState(0);
+  const [error, setError] = useState(null);
+  
+  // ESTADOS PARA FILTROS
+  const [busqueda, setBusqueda] = useState("");
+  const [categoria, setCategoria] = useState("Todas");
+  const [orden, setOrden] = useState("default");
+
+  // OBTENER CATEGORÍAS ÚNICAS
+  const categorias = ["Todas", ...new Set(data.productos.map(p => p.categoria))];
+
+  // LÓGICA DE FILTRADO Y ORDENADO
+  const productosFiltrados = useMemo(() => {
+    if (!data?.productos) return [];
+
+    let resultado = data.productos.filter((p) => {
+      const coincideBusqueda = p.nombre.toLowerCase().includes(busqueda.toLowerCase());
+      const coincideCategoria = categoria === "Todas" || p.categoria === categoria;
+      return coincideBusqueda && coincideCategoria;
+    });
+
+    const resultadoOrdenado = [...resultado];
+
+    if (orden === "default") {
+      resultadoOrdenado.sort((a, b) => {
+        const prioridad = { "mas vendidos": 1, "nuevo": 2, "normal": 3 };
+        const aPrio = prioridad[a.estado] || 3;
+        const bPrio = prioridad[b.estado] || 3;
+        return aPrio - bPrio;
+      });
+    } else if (orden === "precio-bajo") {
+      resultadoOrdenado.sort((a, b) => a.precio - b.precio);
+    } else if (orden === "precio-alto") {
+      resultadoOrdenado.sort((a, b) => b.precio - a.precio);
+    } else if (orden === "nuevos") {
+      resultadoOrdenado.sort((a, b) => (a.estado === "nuevo" ? -1 : b.estado === "nuevo" ? 1 : 0));
+    }
+
+    return resultadoOrdenado;
+  }, [busqueda, categoria, orden]);
 
   return (
     <div className="min-h-screen bg-white text-gray-800 font-sans">
@@ -18,11 +53,11 @@ export default function Home() {
       <header className="sticky top-0 z-50 bg-white border-b-2 border-regalo-azul-c shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full border-2 border-regalo-rosa flex items-center justify-center font-bold text-regalo-rosa">
-              <img src="https://res-console.cloudinary.com/dzgqpqv9f/thumbnails/v1/image/upload/v1766853724/V2hhdHNBcHBfSW1hZ2VfMjAyNS0xMi0yNl9hdF84LjQ0LjM3X3AubS5fMV90Z2JjN2M=/template_primary/ZV9iYWNrZ3JvdW5kX3JlbW92YWwvY19jcm9wLHdfODAwLGhfODAwLGFyXzE6MSxmX3BuZw==" alt="Logo Tiempo Para Regalar" className="w-8 h-8" />
+            <div className="w-10 h-10 rounded-full border-2 border-regalo-lila flex items-center justify-center font-bold text-regalo-rosa">
+              <img src="https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766933777/logo_bg_regalar_yfbuhv.png" alt="Logo Tiempo Para Regalar" className="w-8 h-8" />
             </div>
             <h1 className="text-xl font-black tracking-tighter">
-              <span className="text-regalo-azul-r">TIEMPO PARA</span> <span className="text-regalo-rosa">REGALAR</span>
+              <span className="text-regalo-rosa">PINK SHOP</span>
             </h1>
           </div>
           <nav className="hidden md:flex gap-6 font-medium text-regalo-azul-r">
@@ -33,13 +68,55 @@ export default function Home() {
         </div>
       </header>
 
-      {/* PRODUCTOS */}
-      <section className="max-w-7xl mx-auto py-16 px-4">
-      <h2 className="text-3xl font-bold text-center mb-12">
+      <h2 id="productos" className="text-3xl font-bold text-center my-12">
         Nuestros <span className="text-regalo-verde">productos</span>
       </h2>
+      {/* BARRA DE FILTROS */}
+      <section className="bg-white border-b border-gray-200 py-4 px-6">
+        <div className="max-w-7xl mx-auto flex flex-wrap gap-4 items-center justify-center md:justify-start">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-sm text-gray-500 uppercase">Categoría:</span>
+            <select 
+              className="bg-gray-50 border border-gray-200 rounded-lg px-3 py-1 outline-none focus:ring-2 focus:ring-regalo-azul-c"
+              value={categoria}
+              onChange={(e) => setCategoria(e.target.value)}
+            >
+              {categorias.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+            </select>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-sm text-gray-500 uppercase">Ordenar por:</span>
+            <select 
+              className="bg-gray-50 border border-gray-200 rounded-lg px-3 py-1 outline-none focus:ring-2 focus:ring-regalo-azul-c"
+              value={orden}
+              onChange={(e) => setOrden(e.target.value)}
+            >
+              <option value="default">Relevancia</option>
+              <option value="precio-bajo">Precio: Menor a Mayor</option>
+              <option value="precio-alto">Precio: Mayor a Menor</option>
+              <option value="nuevos">Recién llegados (Nuevos)</option>
+            </select>
+          </div>
+          {/* BARRA DE BÚSQUEDA */}
+          <div className="relative w-full md:w-96">
+            <input 
+              type="text"
+              placeholder="Buscar un regalo..."
+              className=" w-full px-4 py-2 rounded-full border-2 border-gray-100 focus:border-regalo-azul-c outline-none transition"
+              value={busqueda}
+              onChange={(e) => setBusqueda(e.target.value)}
+            />
+          </div>
+          <p className="text-sm text-gray-400 ml-auto italic">
+            Mostrando {productosFiltrados.length} resultados
+          </p>
+        </div>
+      </section>
+      {/* GRID DE PRODUCTOS */}
+      <section className="max-w-7xl mx-auto py-12 px-4">
+      {productosFiltrados.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {data.productos.map((producto) => (
+          {productosFiltrados.map((producto) => (
             <TarjetaProducto 
               key={producto.id} 
               producto={producto} 
@@ -47,69 +124,218 @@ export default function Home() {
             />
           ))}
         </div>
+      ) : (
+        <div className="text-center">
+        </div>
+      )}
       </section>
-            {/* MODAL DE DETALLE */}
-            {productoSeleccionado && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-                <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative shadow-2xl">
-                  <button 
-                    onClick={() => setProductoSeleccionado(null)}
-                    className="absolute top-4 right-4 text-gray-500 hover:text-regalo-rosa text-2xl font-bold"
-                  >✕</button>
+      {/* SECCIÓN DE ALERTAS Y FEEDBACK */}
+      <section className="max-w-7xl mx-auto px-4 mt-6">
+        {/* ERROR TÉCNICO (Archivo dañado o datos nulos) */}
+        {error && (
+          <div className="bg-red-50 border-l-4 border-regalo-rosa p-4 rounded-r-xl my-4">
+            <div className="flex items-center">
+              <span className="text-2xl mr-3">⚠️</span>
+              <div>
+                <h3 className="text-regalo-rosa font-bold">Error de sistema</h3>
+                <p className="text-sm text-gray-600">{error}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ERROR DE FILTRO (No se encontró nada con esa búsqueda) */}
+        {!error && productosFiltrados.length === 0 && (
+          <div className="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-gray-200">
+            <div className="text-5xl mb-4">🔍</div>
+            <h3 className="text-xl font-bold text-gray-400">¡Ups! No encontramos coincidencias</h3>
+            <p className="text-gray-400 mb-6">Prueba con otras palabras o cambia la categoría.</p>
+            <button 
+              onClick={() => {setBusqueda(""); setCategoria("Todas"); setOrden("default");}}
+              className="bg-regalo-azul-c text-white px-6 py-2 rounded-full font-bold hover:bg-regalo-azul-r transition"
+            >
+              Ver todos los productos
+            </button>
+          </div>
+        )}
+        </section>
+        {/* MODAL DE DETALLE */}
+        {productoSeleccionado && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+            <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[95vh] overflow-y-auto relative shadow-2xl">
+              <button 
+                onClick={() => {
+                  setProductoSeleccionado(null);
+                  setImgIndexModal(0); // Reiniciar el índice al cerrar
+                }}
+                className="absolute top-4 right-4 z-10 bg-white/80 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center text-gray-500 hover:text-regalo-rosa shadow-md transition-colors font-bold"
+              >✕</button>
+              
+              <div className="flex flex-col md:flex-row">
+                {/* LADO IZQUIERDO: CARRUSEL DEL MODAL */}
+                <div className="md:w-1/2 relative bg-gray-100">
+                  <img 
+                    src={productoSeleccionado.imagenes[imgIndexModal]} 
+                    alt={productoSeleccionado.nombre} 
+                    className="w-full h-full object-cover transition-opacity duration-500" 
+                  />
                   
-                  <div className="flex flex-col md:flex-row">
-                    <div className="md:w-1/2">
-                      <img src={productoSeleccionado.imagenes[0]} alt={productoSeleccionado.nombre} className="w-full h-full object-cover" />
-                    </div>
-                    <div className="md:w-1/2 p-8">
-                      <span className="text-regalo-azul-c font-bold text-sm uppercase">{productoSeleccionado.categoria}</span>
-                      <h3 className="text-3xl font-black text-regalo-azul-r mt-2">{productoSeleccionado.nombre}</h3>
-                      <p className="text-gray-600 mt-4">{productoSeleccionado.descripcion}</p>
-                      <div className="mt-6">
-                        <p className="font-bold">Colores disponibles:</p>
-                        <div className="flex gap-2 mt-2">
-                          {productoSeleccionado.colores.map(c => (
-                            <span key={c} className="px-3 py-1 bg-gray-100 rounded-full text-xs border border-gray-200">{c}</span>
-                          ))}
-                        </div>
+                  {/* Controles del Carrusel */}
+                  {productoSeleccionado.imagenes.length > 1 && (
+                    <>
+                      <button 
+                        onClick={() => setImgIndexModal((prev) => (prev - 1 + productoSeleccionado.imagenes.length) % productoSeleccionado.imagenes.length)}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 p-3 rounded-full shadow-lg text-regalo-azul-r hover:bg-regalo-azul-c hover:text-white transition-all"
+                      >❮</button>
+                      
+                      <button 
+                        onClick={() => setImgIndexModal((prev) => (prev + 1) % productoSeleccionado.imagenes.length)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 p-3 rounded-full shadow-lg text-regalo-azul-r hover:bg-regalo-azul-c hover:text-white transition-all"
+                      >❯</button>
+
+                      {/* Indicadores (Dots) */}
+                      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+                        {productoSeleccionado.imagenes.map((_, i) => (
+                          <button 
+                            key={i}
+                            onClick={() => setImgIndexModal(i)}
+                            className={`h-2 rounded-full transition-all ${i === imgIndexModal ? 'w-8 bg-regalo-rosa' : 'w-2 bg-white/70'}`}
+                          />
+                        ))}
                       </div>
-                      <p className="text-4xl font-black text-regalo-verde mt-8">${productoSeleccionado.precio}</p>
-                      <button className="mt-6 w-full bg-regalo-rosa text-white py-4 rounded-2xl font-bold hover:scale-105 transition-transform shadow-lg">
-                        Contactar por WhatsApp
-                      </button>
+                    </>
+                  )}
+                </div>
+
+                {/* LADO DERECHO: INFORMACIÓN */}
+                <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                  <div className="flex items-center gap-3">
+                  <span className="text-regalo-azul-c font-bold text-sm uppercase tracking-widest">
+                    {productoSeleccionado.categoria}
+                  </span>
+                  {productoSeleccionado.vendidos > 10 && (
+                    <span className="bg-orange-100 text-orange-600 px-2 py-0.5 rounded-md text-[10px] font-black uppercase">
+                      🔥 Popular
+                    </span>
+                  )}
+                </div>
+                  <h3 className="text-4xl font-black text-regalo-azul-r mt-2 leading-tight">{productoSeleccionado.nombre}</h3>
+                  <p className="text-sm text-gray-500 font-medium mt-1">
+                    Más de <span className="font-bold text-gray-800">{productoSeleccionado.vendidos} personas</span> han regalado esto.
+                  </p>
+                  
+                  <p className="text-gray-600 mt-6 text-lg leading-relaxed">{productoSeleccionado.descripcion}</p>
+                  
+                  <div className="mt-8">
+                    <p className="font-bold text-gray-800">Colores disponibles:</p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {productoSeleccionado.colores.map(c => (
+                        <span key={c} className="px-4 py-2 bg-gray-50 rounded-xl text-sm font-medium border border-gray-100 text-gray-700 italic">
+                          {c}
+                        </span>
+                      ))}
                     </div>
                   </div>
+
+                  <div className="flex items-center gap-6 mt-10 p-6 bg-regalo-azul-c/5 rounded-3xl">
+                    <p className="text-5xl font-black text-regalo-verde">${productoSeleccionado.precio}</p>
+                    {productoSeleccionado.precioOriginal && (
+                      <div className="flex flex-col border-l-2 border-gray-200 pl-4">
+                        <span className="text-gray-400 line-through text-base">${productoSeleccionado.precioOriginal}</span>
+                        <span className="text-regalo-rosa font-black text-sm">
+                          -{Math.round(100 - (productoSeleccionado.precio * 100 / productoSeleccionado.precioOriginal))}% OFF
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  <button 
+                  onClick={() => {
+                      const telefono = "5219619326182"; // REEMPLAZA CON TU NÚMERO (Código de país + número)
+                      const mensaje = `Hola Tiempo para Regalar! 👋 Me interesa obtener más información sobre: 
+                  *${productoSeleccionado.nombre}* Precio: *$${productoSeleccionado.precio}* ¿Tienen disponibilidad?`;
+                      
+                      const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+                      window.open(url, '_blank');
+                    }}
+                    className="mt-8 w-full bg-[#25D366] hover:bg-[#128C7E] text-white py-5 rounded-2xl font-bold text-xl transition-all shadow-xl flex items-center justify-center gap-3 group"
+                  >
+                    <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
+                    Preguntar por WhatsApp
+                  </button>
                 </div>
               </div>
-            )}
+            </div>
+          </div>
+        )}
 
       {/* SECCIÓN PROMOCIONES - Color Rosa del Logo */}
-      <section id="promociones" className="bg-regalo-rosa py-20 text-white">
+      <section id="promociones" className="bg-regalo-lila py-20 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-black mb-6 italic underline decoration-regalo-verde">¡PROMO DE FIN DE AÑO!</h2>
           <p className="text-xl max-w-2xl mx-auto mb-8 font-light">
-            Encuentra el detalle perfecto con un 15% de descuento en tu primera compra usando el código 
-            <span className="font-bold block text-3xl mt-2 tracking-widest text-regalo-azul-r">REGALOFIN2025</span>
+            Encuentra el detalle perfecto con un <span className='text-2xl font-black'>20%</span> de descuento en tu segunda compra usando el código 
+            <span className="font-bold block text-3xl mt-2 tracking-widest text-regalo-rosa">ADIOS2025</span>
           </p>
         </div>
       </section>
 
-      {/* CONTACTO Y REDES - Iconos simulados con texto */}
-      <section id="contacto" className="py-16 bg-gray-50 border-t">
-        <div className="container mx-auto px-4 flex flex-col items-center">
-          <h3 className="text-2xl font-bold text-regalo-azul-r mb-8 text-center">Conéctate con Nosotros</h3>
-          <div className="flex gap-8 mb-12">
-            {data.redes.map((red) => (
-              <a key={red.nombre} href={red.url} target='_blank' className={`text-lg font-bold transition-colors ${red.color}`}>
-                {red.nombre}
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
+{/* CONTACTO Y REDES */}
+<section id="contacto" className="py-20 bg-white border-t border-gray-100">
+  <div className="container mx-auto px-4 flex flex-col items-center">
+    <h3 className="text-3xl font-black text-regalo-azul-r mb-2 text-center italic">
+      ¿TIENES DUDAS?
+    </h3>
+    <p className="text-gray-500 mb-10 text-center">Estamos listos para ayudarte a elegir el mejor regalo.</p>
+    
+    <div className="flex flex-wrap justify-center gap-10 md:gap-16">
+      {data.redes.map((red) => {
+        // Lógica para asignar el icono según el nombre en el JSON
+        const renderIcon = () => {
+          switch (red.nombre.toLowerCase()) {
+            case 'instagram': return <Instagram size={32} />;
+            case 'facebook': return <Facebook size={32} />;
+            case 'whatsapp': return <MessageCircle size={32} />;
+            default: return <Mail size={32} />;
+          }
+        };
+
+        // Colores de hover basados en tu logo
+        const hoverColors = {
+          instagram: "hover:text-regalo-rosa hover:scale-110",
+          facebook: "hover:text-regalo-azul-r hover:scale-110",
+          whatsapp: "hover:text-regalo-verde hover:scale-110",
+          default: "hover:text-regalo-azul-c hover:scale-110"
+        };
+
+        const estiloHover = hoverColors[red.nombre.toLowerCase()] || hoverColors.default;
+
+        return (
+          <a 
+            key={red.nombre} 
+            href={red.url} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className={`flex flex-col items-center gap-3 text-gray-400 transition-all duration-300 ${estiloHover}`}
+          >
+            <div className="p-4 rounded-2xl bg-gray-50 shadow-sm border border-gray-100">
+              {renderIcon()}
+            </div>
+            <span className="text-sm font-bold uppercase tracking-widest">
+              {red.nombre}
+            </span>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</section>
 
       {/* FOOTER */}
-      <footer className="bg-regalo-azul-c text-white py-12">
+      <footer className="bg-regalo-azul-c text-white py-2">
+        {/* OPCIONAL 
         <div className="container mx-auto px-4 grid md:grid-cols-3 gap-8 text-center md:text-left">
           <div>
             <h4 className="font-bold text-regalo-verde mb-4">TIEMPO PARA REGALAR</h4>
@@ -124,13 +350,29 @@ export default function Home() {
             <p className="text-sm opacity-80">Lun - Vie: 9am a 8pm<br/>Sábados: 10am a 4pm</p>
           </div>
         </div>
-        <div className="mt-12 text-center text-xs opacity-80 border-t border-white/20 pt-6">
+        */}
+        <div className="my-2 text-center text-xs opacity-80 border-t border-white/20 py-2">
           © 2025 Tiempo Para Regalar. Diseñado por <a href='https://servitectonala.com' className='font-bold text-regalo-rosa' target='_blank'>SERVITEC.</a>
         </div>
       </footer>
     </div>
   );
 }
+const Badge = ({ estado }) => {
+  if (!estado) return null;
+  
+  const estilos = {
+    nuevo: "bg-regalo-verde text-white",
+    agotado: "bg-gray-500 text-white",
+    oferta: "bg-regalo-amarillo text-red-800",
+  };
+
+  return (
+    <span className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold uppercase shadow-md z-10 ${estilos[estado] || "bg-regalo-lila text-white"}`}>
+      {estado}
+    </span>
+  );
+};
 
 
 // Sub-componente para la Tarjeta con Carrusel
@@ -146,13 +388,17 @@ function TarjetaProducto({ producto, onOpenModal }) {
     e.stopPropagation();
     setImgIndex((prev) => (prev - 1 + producto.imagenes.length) % producto.imagenes.length);
   };
+  
 
   return (
-    <div className="group bg-white rounded-3xl overflow-hidden border-2 border-transparent hover:border-regalo-azul-c transition-all shadow-lg">
+    <div className="group bg-white rounded-3xl overflow-hidden border-2 border-transparent hover:border-regalo-azul-c transition-all duration-300 shadow-lg hover:shadow-2xl">
       {/* Carrusel */}
-      <div className="relative h-64 overflow-hidden bg-gray-200">
-        <img src={producto.imagenes[imgIndex]} alt={producto.nombre} className="w-full h-full object-cover transition-opacity duration-500" />
-        
+      <div className="relative h-80 overflow-hidden bg-gray-200">
+      <Badge estado={producto.estado} />
+        <img src={producto.imagenes[imgIndex]} alt={producto.nombre} className="w-full h-full group-hover:scale-110 object-cover transition-transform duration-500" />
+        <div className="absolute top-4 right-4 bg-white/90 px-3 py-1 rounded-full text-xs font-bold text-regalo-rosa shadow">
+                  {producto.categoria}
+                </div>
         {producto.imagenes.length > 1 && (
           <>
             <button onClick={prevImg} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full hover:bg-white text-regalo-azul-r">❮</button>
@@ -160,6 +406,7 @@ function TarjetaProducto({ producto, onOpenModal }) {
             <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
               {producto.imagenes.map((_, i) => (
                 <div key={i} className={`w-2 h-2 rounded-full ${i === imgIndex ? 'bg-regalo-rosa' : 'bg-white/50'}`} />
+                
               ))}
             </div>
           </>
@@ -167,13 +414,30 @@ function TarjetaProducto({ producto, onOpenModal }) {
       </div>
 
       <div className="p-6 text-center">
-        <h3 className="text-xl font-bold mb-2">{producto.nombre}</h3>
-        <p className="text-2xl font-black text-regalo-verde mb-4">${producto.precio}</p>
-        <button 
+        {/* Texto de cantidad vendida */}
+        {producto.vendidos > 0 && (
+          <p className="text-xs font-bold text-gray-400 mb-1 flex items-center justify-center gap-1">
+            <span className="text-regalo-rosa">★</span> +{producto.vendidos} vendidos
+          </p>
+        )}
+        <h3 className="text-xl font-bold mb-2 group-hover:text-regalo-azul-c transition">{producto.nombre}</h3>
+        {/* Lógica de Precios */}
+          <div className="flex justify-center items-center gap-3 mb-4">
+          {producto.precioOriginal && (
+            <span className="text-gray-400 line-through text-lg">${producto.precioOriginal}</span>
+          )}
+          <p className="text-2xl font-black text-regalo-verde">${producto.precio}</p>
+        </div>
+      <button 
+        disabled={producto.estado === 'agotado'}
         onClick={onOpenModal}
-        className="bg-regalo-verde hover:bg-regalo-rosa text-white w-full py-3 rounded-xl font-bold transition-colors"
-        >
-        Ver Detalle
+        className={`w-full py-3 rounded-xl font-bold transition-colors shadow-md hover:shadow-xl ${
+          producto.estado === 'agotado' 
+          ? 'bg-gray-300 cursor-not-allowed' 
+          : 'bg-regalo-verde hover:bg-regalo-rosa text-white'
+        }`}
+      >
+        {producto.estado === 'agotado' ? 'Sin Stock' : 'Ver Detalle'}
       </button>
       </div>
     </div>

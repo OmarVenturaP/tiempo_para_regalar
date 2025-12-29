@@ -2,81 +2,184 @@
   "productos": [
     {
       "id": 1,
-      "nombre": "Smartwatch Pro Edition",
-      "precio": 1200,
-      "categoria": "Electrónica",
+      "nombre": "Luz de noche con bola de cristal",
+      "vendidos": 10,
+      "precio": 129,
+      "precioOriginal": 249,
+      "estado": "nuevo",
+      "categoria": "Bienestar",
       "imagenes": [
-        "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500",
-        "https://images.unsplash.com/photo-1508685096489-7aac291ba597?w=500",
-        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500"
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766976848/bola_cristal_luna_bslnid.avif",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766961394/WhatsApp_Image_2025-12-28_at_4.19.09_PM_nz2bfy.jpg",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766976848/bola_saturno_2_y5wkbk.avif",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766976857/lampara_cristal_gn91h7.webp",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766976857/descripcion_bola_cristal_yeac6u.webp",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766976856/datos_bola_cristal_itf5up.webp"
+
       ],
-      "descripcion": "Un reloj inteligente con pantalla AMOLED, resistencia al agua y batería de 7 días.",
-      "colores": ["Negro", "Azul", "Rosa"]
+      "descripcion": "Luz led calida, luz de noche con bola de cristal",
+      "colores": ["Luz calida Ballena"]
     },
     {
       "id": 2,
-      "nombre": "Smartwatch Pro Edition",
-      "precio": 1200,
-      "categoria": "Electrónica",
+      "nombre": "Plancha para cabello",
+      "vendidos": 5,
+      "precio": 129,
+      "precioOriginal": 229,
+      "estado": "nuevo",
+      "categoria": "Belleza",
       "imagenes": [
-        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500",
-        "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500",
-        "https://images.unsplash.com/photo-1508685096489-7aac291ba597?w=500"
+        "https://scontent.fscx1-1.fna.fbcdn.net/v/t39.30808-6/605210296_1430620405159388_9049622349080086199_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=Z6Z5Cwogmg8Q7kNvwFnwAY4&_nc_oc=AdnRw2ztRN7ggODtuKIq5BfBSZxmzWUwyGz-ZKcKX1GkC-gsIw4hr1TvdDX_d_txt8tLFyzX3ONk4ITC975tWbWQ&_nc_zt=23&_nc_ht=scontent.fscx1-1.fna&_nc_gid=l7VkDADff1_CUZvcNFDmRQ&oh=00_AfkEDy6UQLyUee0sNMO8PhqWOeC9GSIbsdQ_m51rL-E3sQ&oe=69570859",
+        "https://scontent.fscx1-1.fna.fbcdn.net/v/t39.30808-6/605218047_1430620415159387_5071817130529372196_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=RyU2PP3_BgUQ7kNvwEhrVuL&_nc_oc=Adn4ShX24pXS-PDftDlGlwa-_IlWyoLYFYGA2K-alounxSxN9zGLdRRZjcRjX2cVRrhGnFVvV5WRWd1lTSLO8-QC&_nc_zt=23&_nc_ht=scontent.fscx1-1.fna&_nc_gid=9mH4T4Oz5_oUgwWfjBuZrw&oh=00_AfmC2p92EbNlkPq1NiBMAftBwrxwuFchpZPPUtrUs178oQ&oe=69571E6F",
+        "https://scontent.fscx1-1.fna.fbcdn.net/v/t39.30808-6/605133635_1430620451826050_5703870859937539872_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=101&ccb=1-7&_nc_sid=833d8c&_nc_ohc=uiS93yzBv7MQ7kNvwHfD5Zi&_nc_oc=AdluXSoEQPhkFV2QzFVmCkvEOEQ9sBROD2EpbK8k-DnLc6KXMbPfIRbMOKDatrZMv0Mw5_WhQNpQtCIYItQQO-rM&_nc_zt=23&_nc_ht=scontent.fscx1-1.fna&_nc_gid=JPrQIqSfKBVnr0yBLRQfNQ&oh=00_AfkklZSMCL_anl7az-HFUSLF7xCcuIvXvLJGyKmHzLlWVA&oe=69570E91"
       ],
-      "descripcion": "Un reloj inteligente con pantalla AMOLED, resistencia al agua y batería de 7 días.",
-      "colores": ["Negro", "Azul", "Rosa"]
+      "descripcion": "Plancha de cabello con placas de cerámica, ajustable y facil de usar.",
+      "colores": ["Negro"]
     },
     {
       "id": 3,
-      "nombre": "Reloj Clásico Cuero",
-      "precio": 850,
-      "categoria": "Accesorios",
+      "nombre": "Limpia brochas electrónico",
+      "vendidos": 5,
+      "precio": 129,
+      "precioOriginal": 199,
+      "estado": "nuevo",
+      "categoria": "Belleza",
       "imagenes": [
-        "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=500",
-        "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500"
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766979830/limpia_brocha_bv9pvc.avif",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766979833/Untitled_Project_2_jsct5k.png",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766961395/WhatsApp_Image_2025-12-28_at_4.19.08_PM_o2g49i.jpg"
       ],
       "descripcion": "Elegancia pura con correa de cuero genuino y maquinaria suiza.",
-      "colores": ["Marrón", "Negro"]
+      "colores": ["Blanco", "Negro"]
     },
     {
       "id": 4,
-      "nombre": "Reloj Clásico Cuero",
-      "precio": 850,
+      "nombre": "Bandolera de cuero",
+      "vendidos": 15,
+      "precio": 159,
+      "precioOriginal": 249,
+      "estado": "agotado",
       "categoria": "Accesorios",
       "imagenes": [
-        "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500",
-        "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=500"
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766961365/WhatsApp_Image_2025-12-28_at_4.19.10_PM_18_rdr7dm.jpg"
       ],
-      "descripcion": "Elegancia pura con correa de cuero genuino y maquinaria suiza.",
-      "colores": ["Marrón", "Negro"]
+      "descripcion": "Elegancia pura con correa de cuero genuino.",
+      "colores": ["Blanco"]
     },
     {
       "id": 5,
-      "nombre": "Reloj Clásico Cuero",
-      "precio": 850,
+      "nombre": "Bolsa de mano elegante",
+      "vendidos": 10,
+      "precio": 249,
+      "precioOriginal": 349,
+      "estado": "nuevo",
       "categoria": "Accesorios",
       "imagenes": [
-        "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500",
-        "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=500"
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766961388/WhatsApp_Image_2025-12-28_at_4.19.10_PM_2_aheqys.jpg",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766961387/WhatsApp_Image_2025-12-28_at_4.19.10_PM_3_mbm8qv.jpg"
       ],
-      "descripcion": "Elegancia pura con correa de cuero genuino y maquinaria suiza.",
+      "descripcion": "Elegancia pura.",
       "colores": ["Marrón", "Negro"]
     },
     {
       "id": 6,
-      "nombre": "Reloj Clásico Cuero",
-      "precio": 850,
-      "categoria": "Accesorios",
+      "nombre": "Brochas de maquillaje",
+      "vendidos": 5,
+      "precio": 99,
+      "precioOriginal": 149,
+      "estado": "nuevo",
+      "categoria": "Belleza",
       "imagenes": [
-        "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500",
-        "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=500"
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766961383/WhatsApp_Image_2025-12-28_at_4.19.10_PM_6_pajeeu.jpg",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766961387/WhatsApp_Image_2025-12-28_at_4.19.10_PM_4_yshy0e.jpg",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766961387/WhatsApp_Image_2025-12-28_at_4.19.10_PM_5_a8bjg7.jpg"
       ],
-      "descripcion": "Elegancia pura con correa de cuero genuino y maquinaria suiza.",
-      "colores": ["Marrón", "Negro"]
+      "descripcion": "Elegancia pura.",
+      "colores": ["Marrón", "Rosa", "Negro"]
+    },
+    {
+      "id": 7,
+      "nombre": "Mochila de viaje",
+      "vendidos": 20,
+      "precio": 299,
+      "precioOriginal": 489,
+      "estado": "mas vendidos",
+      "categoria": "Mochilas",
+      "imagenes": [
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766978254/Untitled_Project_1_fnj0v2.png",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766978609/mochila_azul_nu4yfi.png",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766978616/mochila_borgon%CC%83a_klyuxh.png"
+      ],
+      "descripcion": "Mochila reforzada, espacio de almacenamiento de gran capacidad de múltiples niveles con cremallera y cerradura de combinación, ideal para la escuela, negocios y viajes.",
+      "colores": ["Negra", "Azul", "Borgoña"]
+    },
+    {
+      "id": 8,
+      "nombre": "Audífonos inalámbricos",
+      "vendidos": 15,
+      "precio": 129,
+      "precioOriginal": 199,
+      "estado": "nuevo",
+      "categoria": "Tecnología",
+      "imagenes": [
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766979548/Captura_de_pantalla_2025-12-28_a_la_s_9.37.44_p.m._il7odi.png",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766963217/WhatsApp_Image_2025-12-28_at_4.19.10_PM_7_cjtvpf.jpg",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766979547/Captura_de_pantalla_2025-12-28_a_la_s_9.37.30_p.m._anmmss.png",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766979548/Captura_de_pantalla_2025-12-28_a_la_s_9.37.20_p.m._czjh46.png"
+      ],
+      "descripcion": "Auriculares inalámbricos sobre-ear de color beige claro, con sonido potente de graves, comodidad de uso, libertad inalámbrica, un artefacto ideal para escuchar música y ver series.",
+      "colores": ["Ostión"]
+    },
+    {
+      "id": 9,
+      "nombre": "Lonchera portátil",
+      "vendidos": 30,
+      "precio": 129,
+      "precioOriginal": 199,
+      "estado": "nuevo",
+      "categoria": "Tecnología",
+      "imagenes": [
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766963113/WhatsApp_Image_2025-12-28_at_4.19.10_PM_13_qbxuq2.jpg",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766963166/WhatsApp_Image_2025-12-28_at_4.19.10_PM_12_po0wd2.jpg"
+      ],
+      "descripcion": "Elegancia pura.",
+      "colores": ["Ostión"]
+    },
+    {
+      "id": 10,
+      "nombre": "Mochila casual",
+      "vendidos": 15,
+      "precio": 159,
+      "precioOriginal": 249,
+      "estado": "oferta",
+      "categoria": "Mochilas",
+      "imagenes": [
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766979141/bg_backpack_w9frnx.png",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766979149/Captura_de_pantalla_2025-12-28_a_la_s_9.11.14_p.m._jratcm.png",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766961389/WhatsApp_Image_2025-12-28_at_4.19.10_PM_1_foffzh.jpg",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766979149/Captura_de_pantalla_2025-12-28_a_la_s_9.10.31_p.m._qlvdev.png"
+      ],
+      "descripcion": "Mochila multifuncional para laptop adecuada para Negocios, viajes, escuela y regalos.",
+      "colores": ["Gris"]
+    },
+    {
+      "id": 11,
+      "nombre": "Pistola de masaje portátil",
+      "vendidos": 25,
+      "precio": 199,
+      "precioOriginal": 299,
+      "estado": "nuevo",
+      "categoria": "Bienestar",
+      "imagenes": [
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766980196/Untitled_Project_3_niodwj.png",
+        "https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766980181/Captura_de_pantalla_2025-12-28_a_la_s_9.47.17_p.m._rla69w.png"
+      ],
+      "descripcion": "Pistola de masaje con 4 cabezales intercambiables, 6 niveles ajustables, pantalla LCD, bajo ruido, recargable por USB.",
+      "colores": ["Negro"]
     }
   ],
   "redes": [
     { "nombre": "Facebook", "url": "https://www.facebook.com/tiempopara.regalar.3" },
-    { "nombre": "WhatsApp", "url": "#" }
+    { "nombre": "WhatsApp", "url": "https://api.whatsapp.com/send/?phone=5219619326182&text=Hola+Tiempo+para+Regalar%21+%EF%BF%BD+Me+interesa+obtener+m%C3%A1s+informaci%C3%B3n+sobre+tus+productos" }
   ]
 }
