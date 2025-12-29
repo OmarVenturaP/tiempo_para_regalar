@@ -510,9 +510,16 @@ const StatCardDarkMode = ({ icon, target, label, symbol, accentColor }) => (
     </div>
     
     {/* Número animado */}
-    <div className="text-5xl font-black text-white mb-2 tabular-nums tracking-tighter">
-      {symbol}<Counter target={target} />
-    </div>
+    {symbol === '%' ? (
+      <div className="text-5xl font-black text-white mb-2 tabular-nums tracking-tighter">
+        <Counter target={target} />{symbol}
+      </div>
+    ) : (
+      <div className="text-5xl font-black text-white mb-2 tabular-nums tracking-tighter">
+        {symbol}<Counter target={target} />
+      </div>
+    )}
+    
     
     {/* Etiqueta */}
     <p className="text-gray-400 font-bold uppercase text-[10px] tracking-[0.3em]">
