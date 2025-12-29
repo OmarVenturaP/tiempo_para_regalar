@@ -1,6 +1,7 @@
 "use client";
 import { useState, useMemo } from 'react';
-import { Instagram, Facebook, MessageCircle, Mail } from 'lucide-react';
+import { Instagram, Facebook, MessageCircle, Mail, Users, Gift, Smile, Award } from 'lucide-react';
+import Counter from '../components/Counter';
 import data from '../data/productos.json';
 
 export default function Home() {
@@ -51,24 +52,25 @@ export default function Home() {
       
       {/* HEADER - Inspirado en el círculo azul celeste del logo */}
       <header className="sticky top-0 z-50 bg-white border-b-2 border-regalo-azul-c shadow-sm">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="container mx-auto px-4 py-6 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-full border-2 border-regalo-lila flex items-center justify-center font-bold text-regalo-rosa">
               <img src="https://res.cloudinary.com/dzgqpqv9f/image/upload/v1766933777/logo_bg_regalar_yfbuhv.png" alt="Logo Tiempo Para Regalar" className="w-8 h-8" />
             </div>
             <h1 className="text-xl font-black tracking-tighter">
-              <span className="text-regalo-rosa">PINK SHOP</span>
+              <a href='/'><span className="text-regalo-rosa">PINK SHOP</span></a>
             </h1>
           </div>
           <nav className="hidden md:flex gap-6 font-medium text-regalo-azul-r">
             <a href="#productos" className="hover:text-regalo-verde transition">Productos</a>
             <a href="#promociones" className="hover:text-regalo-verde transition">Promociones</a>
             <a href="#contacto" className="hover:text-regalo-verde transition">Contacto</a>
+            <a href="#trayectoria" className="hover:text-regalo-verde transition">Trayectoria</a>
           </nav>
         </div>
       </header>
 
-      <h2 id="productos" className="text-3xl font-bold text-center my-12">
+      <h2 id="productos" className="text-3xl font-bold text-center py-6">
         Nuestros <span className="text-regalo-verde">productos</span>
       </h2>
       {/* BARRA DE FILTROS */}
@@ -272,15 +274,69 @@ export default function Home() {
         )}
 
       {/* SECCIÓN PROMOCIONES - Color Rosa del Logo */}
-      <section id="promociones" className="bg-regalo-lila py-20 text-white">
+      <section id="promociones" className="bg-regalo-lila py-6 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-black mb-6 italic underline decoration-regalo-verde">¡PROMO DE FIN DE AÑO!</h2>
-          <p className="text-xl max-w-2xl mx-auto mb-8 font-light">
+          <p className="text-xl max-w-2xl mx-auto mb-4 font-light">
             Encuentra el detalle perfecto con un <span className='text-2xl font-black'>20%</span> de descuento en tu segunda compra usando el código 
             <span className="font-bold block text-3xl mt-2 tracking-widest text-regalo-rosa">ADIOS2025</span>
           </p>
         </div>
       </section>
+
+{/* SECCIÓN DE TRAYECTORIA - ALTO CONTRASTE */}
+<section id='trayectoria' className="py-24 bg-[#0A192F] relative overflow-hidden">
+  {/* Elementos decorativos de fondo (Círculos de luz) */}
+  <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+    <div className="absolute -top-24 -left-24 w-96 h-96 bg-regalo-azul-r/20 rounded-full blur-[120px]"></div>
+    <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-regalo-rosa/20 rounded-full blur-[120px]"></div>
+  </div>
+
+  <div className="max-w-7xl mx-auto px-4 relative z-10">
+    <div className="text-center mb-20">
+      <h2 className="text-4xl md:text-5xl font-black text-white italic tracking-tight">
+        NUESTRA <span className="text-regalo-azul-c">TRAYECTORIA</span> EN NÚMEROS
+      </h2>
+      <p className="text-gray-400 mt-2 font-medium">Resultados que hablan de nuestro compromiso</p>
+      <div className="h-1 w-20 bg-regalo-rosa mx-auto mt-6 rounded-full"></div>
+    </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      {/* Tarjeta 1 */}
+      <StatCardDarkMode 
+        icon={<Users size={32} />} 
+        target="500" 
+        label="Clientes Satisfechos" 
+        symbol="+"
+        accentColor="text-regalo-azul-c"
+      />
+      {/* Tarjeta 2 */}
+      <StatCardDarkMode 
+        icon={<Gift size={32} />} 
+        target="2200" 
+        label="Regalos Enviados" 
+        symbol="+"
+        accentColor="text-regalo-rosa"
+      />
+      {/* Tarjeta 3 */}
+      <StatCardDarkMode 
+        icon={<Smile size={32} />} 
+        target="100" 
+        label="Felicidad Garantizada" 
+        symbol="%"
+        accentColor="text-regalo-verde"
+      />
+      {/* Tarjeta 4 */}
+      <StatCardDarkMode 
+        icon={<Award size={32} />} 
+        target="4" 
+        label="Años de Experiencia" 
+        symbol=""
+        accentColor="text-white"
+      />
+    </div>
+  </div>
+</section>
 
 {/* CONTACTO Y REDES */}
 <section id="contacto" className="py-20 bg-white border-t border-gray-100">
@@ -351,13 +407,35 @@ export default function Home() {
           </div>
         </div>
         */}
-        <div className="my-2 text-center text-xs opacity-80 border-t border-white/20 py-2">
-          © 2025 Tiempo Para Regalar. Diseñado por <a href='https://servitectonala.com' className='font-bold text-regalo-rosa' target='_blank'>SERVITEC.</a>
+        <div className="my-2 text-center font-black text-xs opacity-80 border-t border-white/20 py-2">
+          © 2026 Tiempo Para Regalar. Diseñado por <a href='https://servitectonala.com' className='font-bold text-regalo-rosa' target='_blank'>SERVITEC.</a>
         </div>
       </footer>
     </div>
   );
 }
+
+const StatCardDarkMode = ({ icon, target, label, symbol, accentColor }) => (
+  <div className="relative group p-10 rounded-[3rem] bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-500 text-center">
+    {/* Icono con resplandor */}
+    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 bg-white/10 ${accentColor} shadow-[0_0_20px_rgba(255,255,255,0.05)] group-hover:scale-110 transition-transform`}>
+      {icon}
+    </div>
+    
+    {/* Número animado */}
+    <div className="text-5xl font-black text-white mb-2 tabular-nums tracking-tighter">
+      {symbol}<Counter target={target} />
+    </div>
+    
+    {/* Etiqueta */}
+    <p className="text-gray-400 font-bold uppercase text-[10px] tracking-[0.3em]">
+      {label}
+    </p>
+
+    {/* Línea decorativa inferior que crece al hacer hover */}
+    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-0 h-1 bg-regalo-azul-c group-hover:w-12 transition-all duration-500 rounded-full"></div>
+  </div>
+);
 const Badge = ({ estado }) => {
   if (!estado) return null;
   
