@@ -275,13 +275,16 @@ export default function Home() {
         )}
 
       <section id="promociones" className="scroll-mt-24 bg-regalo-lila py-6 text-white">
-        <div className="container mx-auto px-4 text-center">
+      {/*
+      <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-black mb-6 italic underline decoration-regalo-verde">¡PROMO DE FIN DE AÑO!</h2>
           <p className="text-xl max-w-2xl mx-auto mb-4 font-light">
             Encuentra el detalle perfecto con un <span className='text-2xl font-black'>10%</span> de descuento en tu segunda compra usando el código 
             <span className="font-bold block text-3xl mt-2 tracking-widest text-regalo-rosa">ADIOS2025</span>
           </p>
         </div>
+      */}
+        
       </section>
 
     <section id='servicios' className="scroll-mt-24 py-20 bg-white">
@@ -411,6 +414,7 @@ export default function Home() {
       </div>
     </section>
 
+    {/*
     <section id="contacto" className="scroll-mt-24 py-20 bg-white border-t border-gray-100">
       <div className="container mx-auto px-4 flex flex-col items-center">
         <h3 className="text-3xl font-black text-regalo-azul-r mb-2 text-center italic">
@@ -429,7 +433,7 @@ export default function Home() {
                 default: return <Mail size={32} />;
               }
             };
-
+ 
             // Colores de hover basados en tu logo
             const hoverColors = {
               instagram: "hover:text-regalo-rosa hover:scale-110",
@@ -437,9 +441,9 @@ export default function Home() {
               whatsapp: "hover:text-regalo-verde hover:scale-110",
               default: "hover:text-regalo-azul-c hover:scale-110"
             };
-
+ 
             const estiloHover = hoverColors[red.nombre.toLowerCase()] || hoverColors.default;
-
+ 
             return (
               <a 
                 key={red.nombre} 
@@ -460,6 +464,8 @@ export default function Home() {
         </div>
       </div>
     </section>
+    */
+    }
 
       <footer className="bg-regalo-azul-c text-white py-2">
         {/* OPCIONAL 
@@ -479,7 +485,7 @@ export default function Home() {
         </div>
         */}
         <div className="my-2 text-center font-black text-xs opacity-80 border-t border-white/20 py-2">
-          © 2026 Tiempo Para Regalar. Diseñado por <a href='https://servitectonala.com' className='font-bold text-regalo-rosa' target='_blank'>SERVITEC.</a>
+          © 2026 PINK SHOP. Diseñado por <a href='https://servitectonala.com' className='font-bold text-regalo-rosa' target='_blank'>SERVITEC.</a>
         </div>
       </footer>
     </div>
