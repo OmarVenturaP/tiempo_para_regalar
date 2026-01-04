@@ -13,8 +13,7 @@ export const getPool = () => {
       database: process.env.DB_NAME,
       port: process.env.DB_PORT,
       ssl: {
-        ca: fs.readFileSync(path.join(process.cwd(), 'ca.pem')),
-        rejectUnauthorized: true 
+        rejectUnauthorized: false 
       },
       waitForConnections: true,
       connectionLimit: 10,
