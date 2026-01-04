@@ -1,27 +1,54 @@
 "use client";
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Instagram, Facebook, MessageCircle, Mail, Users, Gift, Smile, Award, Truck, ShieldCheck, CalendarDays, Wallet, Layers, MapPin } from 'lucide-react';
 import Counter from '../components/Counter';
-import data from '../data/productos.json';
 
 export default function Home() {
+  const [productos, setProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
   const [imgIndexModal, setImgIndexModal] = useState(0);
   const [error, setError] = useState(null);
   
-  // ESTADOS PARA FILTROS
   const [busqueda, setBusqueda] = useState("");
   const [categoria, setCategoria] = useState("Todas");
   const [orden, setOrden] = useState("default");
 
+  useEffect(() => {
+    async function cargarProductos() {
+      try {
+        const res = await fetch('/api/productos');
+        if (!res.ok) throw new Error("No se pudo conectar con la base de datos");
+        const data = await res.json();
+        
+
+        const productosFormateados = data.map(p => ({
+          ...p,
+          id: p.id_producto, 
+          precio: p.precio_oferta, 
+          precioOriginal: p.precio_original,
+          imagenes: p.imagenes ? p.imagenes.split(' | ') : [], 
+          colores: p.colores ? p.colores.split(', ') : []      
+        }));
+
+        setProductos(productosFormateados);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    cargarProductos();
+  }, []);
+
   // OBTENER CATEGORÍAS ÚNICAS
-  const categorias = ["Todas", ...new Set(data.productos.map(p => p.categoria))];
+  const categorias = useMemo(() => {
+    return ["Todas", ...new Set(productos.map(p => p.categoria))];
+  }, [productos]);
 
   // LÓGICA DE FILTRADO Y ORDENADO
   const productosFiltrados = useMemo(() => {
-    if (!data?.productos) return [];
-
-    let resultado = data.productos.filter((p) => {
+    let resultado = productos.filter((p) => {
       const coincideBusqueda = p.nombre.toLowerCase().includes(busqueda.toLowerCase());
       const coincideCategoria = categoria === "Todas" || p.categoria === categoria;
       return coincideBusqueda && coincideCategoria;
@@ -45,7 +72,13 @@ export default function Home() {
     }
 
     return resultadoOrdenado;
-  }, [busqueda, categoria, orden]);
+  }, [productos, busqueda, categoria, orden]);
+
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center">
+       <div className="animate-bounce text-regalo-rosa font-bold">Cargando PINK SHOP...</div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-white text-gray-800 font-sans">
@@ -128,8 +161,12 @@ export default function Home() {
           ))}
         </div>
       ) : (
-        <div className="text-center">
-        </div>
+        /* Mostrar mensaje de no resultados solo si no hay error */
+        !error && (
+          <div className="text-center py-20 border-2 border-dashed rounded-3xl">
+            <h3 className="text-xl font-bold text-gray-400">No encontramos resultados</h3>
+          </div>
+        )
       )}
       </section>
       {/* SECCIÓN DE ALERTAS Y FEEDBACK */}
@@ -254,8 +291,8 @@ export default function Home() {
 
                   <button 
                   onClick={() => {
-                      const telefono = "5219619326182"; // REEMPLAZA CON TU NÚMERO (Código de país + número)
-                      const mensaje = `Hola Tiempo para Regalar! 👋 Me interesa obtener más información sobre: 
+                      const telefono = "5219619326182"; 
+                      const mensaje = `Hola PINK SHOP! 👋 Me interesa obtener más información sobre: 
                   *${productoSeleccionado.nombre}* Precio: *$${productoSeleccionado.precio}* ¿Tienen disponibilidad?`;
                       
                       const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
@@ -509,7 +546,7 @@ const BenefitItem = ({ icon, title, description, color }) => (
 );
 
 const StatCardDarkMode = ({ icon, target, label, symbol, accentColor }) => (
-  <div className="relative group p-10 rounded-[3rem] bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-500 text-center">
+  <div className="relative group p-10 rounded-[3rem] bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 text-center">
     {/* Icono con resplandor */}
     <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 bg-white/10 ${accentColor} shadow-[0_0_20px_rgba(255,255,255,0.05)] group-hover:scale-110 transition-transform`}>
       {icon}

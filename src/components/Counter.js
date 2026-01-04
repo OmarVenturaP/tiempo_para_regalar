@@ -7,14 +7,13 @@ const Counter = ({ target, duration = 2000 }) => {
   const elementRef = useRef(null);
 
   useEffect(() => {
-    // Configuración del observador
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setHasStarted(true);
         }
       },
-      { threshold: 0.5 } // Se activa cuando el 50% del elemento es visible
+      { threshold: 0.5 } 
     );
 
     if (elementRef.current) {
@@ -29,7 +28,7 @@ const Counter = ({ target, duration = 2000 }) => {
 
     let start = 0;
     const end = parseInt(target);
-    const incrementTime = 30; // Más fluido
+    const incrementTime = 30; 
     const totalSteps = duration / incrementTime;
     const increment = end / totalSteps;
 
