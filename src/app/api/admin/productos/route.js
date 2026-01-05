@@ -60,9 +60,10 @@ export async function PUT(req) {
     const body = await req.json();
     const { 
       id_producto, nombre, id_categoria, precio_original, 
-      precio_oferta, descripcion, id_estado, imagenes, colores, temporadas 
+      precio_oferta, descripcion, vendidos, id_estado, imagenes, colores, temporadas
     } = body;
     await connection.beginTransaction();
+    console.log(body)
 
     // 1. Actualizar datos base del producto
     await connection.query(
@@ -73,9 +74,10 @@ export async function PUT(req) {
         precio_original=?, 
         precio_oferta=?, 
         descripcion=?, 
-        id_estado=? 
+        id_estado=?, 
+        vendidos=?
        WHERE id_producto=?`,
-      [nombre, id_categoria, precio_original, precio_oferta, descripcion, id_estado, id_producto]
+      [nombre, id_categoria, precio_original, precio_oferta, descripcion, id_estado, vendidos, id_producto]
     );
 
     // 2. ACTUALIZAR IMÁGENES (Estrategia: Borrar todo e insertar lo nuevo)
