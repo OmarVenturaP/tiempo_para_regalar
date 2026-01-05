@@ -7,6 +7,7 @@ import Toast from '@/components/admin/Toast';
 import Link from 'next/link';
 
 export default function NuevoProducto() {
+  const [loading, setLoading] = useState(false);
   const [alerta, setAlerta] = useState({ show: false, msj: '', tipo: 'success' });
   const [prod, setProd] = useState({
     nombre: '', 
@@ -71,6 +72,7 @@ export default function NuevoProducto() {
   const guardar = async (e) => {
     e.preventDefault();
     setEnviando(true);
+    setLoading(true);
 
     // CAMBIO 4: Preparamos los datos (convertimos el array de imágenes a string con pipes |)
     // Esto es necesario si tu backend espera un string concatenado.
@@ -90,9 +92,11 @@ export default function NuevoProducto() {
         setTimeout(() => router.push('/dashboard'), 2000);
       } else {
         setAlerta({ show: true, msj: "Hubo un error al guardar", tipo: 'error' });
+        setLoading(false);
       }
     } catch (error) {
       setAlerta({ show: true, msj: "Error de conexión", tipo: 'error' });
+      setLoading(false);
     } finally {
       setEnviando(false);
     }
@@ -211,9 +215,9 @@ export default function NuevoProducto() {
           </p>
         </div>
 
-        <button className="col-span-2 bg-regalo-rosa text-white py-5 rounded-2xl font-black text-xl hover:shadow-2xl transition-all">
-          GUARDAR PRODUCTO
-        </button>
+        <button disabled={loading} className="col-span-2 bg-regalo-rosa text-white py-5 rounded-2xl font-black text-xl hover:shadow-xl transition-all disabled:bg-gray-300 mt-4">
+        {loading ? "GUARDANDO..." : "GUARDAR PRODUCTO"}
+      </button>
       </form>
       {alerta.show && (
         <Toast 
