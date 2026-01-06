@@ -7,6 +7,8 @@ import Footer from '@/components/Footer';
 import FacebookLive from '@/components/FacebookLive';
 import Promociones from '@/components/Promociones';
 import Headers from '@/components/Headers';
+import BannerCaptura from '@/components/BannerDinamico';
+import SorteoPink from '@/components/SorteoPink';
 
 
 export default function Home() {
@@ -127,6 +129,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white text-gray-800 font-sans">
+    <SorteoPink />
     
       <Headers />
       <SoftCategorias />
